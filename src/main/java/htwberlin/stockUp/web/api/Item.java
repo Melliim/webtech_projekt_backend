@@ -1,21 +1,18 @@
 package htwberlin.stockUp.web.api;
 
-import java.util.List;
-
-public class Category {
-
+public class Item {
     private long id;
     private String name;
     private String description;
-    private boolean activeStatus;
-    private List<Long> itemIds;
+    private String storage;
+    private Category category;
 
-    public Category(long id, String name, String description, boolean activeStatus, List<Long> itemIds) {
+    public Item(long id, String name, String description, String storage, Category category) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.activeStatus = activeStatus;
-        this.itemIds = itemIds;
+        this.storage = storage;
+        this.category = category;
     }
 
     public long getId() {
@@ -42,19 +39,20 @@ public class Category {
         this.description = description;
     }
 
-    public boolean getActiveStatus() {
-        return activeStatus;
+    public String getStorage() {
+        return storage;
     }
 
-    public void setActiveStatus(boolean activeStatus) {
-        this.activeStatus = activeStatus;
+    public void setStorage(String storage) {
+        this.storage = storage;
     }
 
-    public List<Long> getItemIds() {
-        return itemIds;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setItemIds(List<Long> itemIds) {
-        this.itemIds = itemIds;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
+

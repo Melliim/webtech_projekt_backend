@@ -13,28 +13,31 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryTransformer categoryTransformer;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+
+    public CategoryService(CategoryRepository categoryRepository, CategoryTransformer categoryTransformer) {
         this.categoryRepository = categoryRepository;
+        this.categoryTransformer = categoryTransformer;
     }
 
     public List<Category> findAll() {
         List<CategoryEntity> categories = categoryRepository.findAll();
         return categories.stream()
-                .map(this::transformEntity)
+                .map(categoryTransformer::transformEntity)
                 .collect(Collectors.toList());
 
     }
 
     public Category findById(Long id) {
         var categoryEntity = categoryRepository.findById(id);
-        return categoryEntity.map(this::transformEntity).orElse(null);
+        return categoryEntity.map(categoryTransformer::transformEntity).orElse(null);
     }
 
     public Category create(CategoryManipulationRequest request) {
         var categoryEntity = new CategoryEntity(request.getName(), request.getDescription(), request.isActiveStatus());
-        categoryRepository.save(categoryEntity);
-        return transformEntity(categoryEntity);
+        categoryEntity = categoryRepository.save(categoryEntity);
+        return categoryTransformer.transformEntity(categoryEntity);
 
     }
 
@@ -50,7 +53,7 @@ public class CategoryService {
         categoryEntity.setActiveStatus(request.isActiveStatus());
         categoryEntity = categoryRepository.save(categoryEntity);
 
-        return transformEntity(categoryEntity);
+        return categoryTransformer.transformEntity(categoryEntity);
     }
 
     public boolean deleteById(Long id) {
@@ -60,15 +63,6 @@ public class CategoryService {
 
         categoryRepository.deleteById(id);
         return true;
-    }
-
-    private Category transformEntity(CategoryEntity categoryEntity) {
-        return new Category(
-                categoryEntity.getId(),
-                categoryEntity.getName(),
-                categoryEntity.getDescription(),
-                categoryEntity.getActiveStatus()
-        );
     }
 
 }

@@ -2,6 +2,9 @@ package htwberlin.stockUp.persistence;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name = "categories")
 public class CategoryEntity {
 
@@ -9,12 +12,15 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
     @Column(name = "is_active")
     private boolean activeStatus;
+
+    @OneToMany(mappedBy = "shelf", fetch = FetchType.EAGER)
+    private List<ItemEntity> items = new ArrayList<>();
 
 
     public CategoryEntity( String name, String description, boolean activeStatus) {
@@ -51,5 +57,13 @@ public class CategoryEntity {
 
     public void setActiveStatus(boolean activeStatus) {
         this.activeStatus = activeStatus;
+    }
+
+    public List<ItemEntity> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemEntity> items) {
+        this.items = items;
     }
 }
