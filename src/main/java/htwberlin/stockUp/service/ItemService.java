@@ -54,6 +54,13 @@ public class ItemService {
         itemEntity.setName(request.getName());
         itemEntity.setDescription(request.getDescription());
         itemEntity.setStorage(Storage.valueOf((request.getStorage())));
+
+        var categoryEntityOptional = categoryRepository.findById(request.getShelfId());
+        if (categoryEntityOptional.isPresent()) {
+            var categoryEntity = categoryEntityOptional.get();
+            itemEntity.setShelf(categoryEntity);
+        }
+
         itemEntity = itemRepository.save(itemEntity);
 
         return this.transformEntity((itemEntity));
