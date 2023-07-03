@@ -8,14 +8,14 @@ public class Category {
     private String name;
     private String description;
     private boolean activeStatus;
-    private List<Long> itemIds;
+    private List<Long> items;
 
-    public Category(long id, String name, String description, boolean activeStatus, List<Long> itemIds) {
+    public Category(long id, String name, String description, boolean activeStatus, List<Long> items) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.activeStatus = activeStatus;
-        this.itemIds = itemIds;
+        this.items = items;
     }
 
     public long getId() {
@@ -50,11 +50,11 @@ public class Category {
         this.activeStatus = activeStatus;
     }
 
-    public List<Long> getItemIds() {
-        return itemIds;
+    public List<Long> getItems() {
+        return items;
     }
 
-    public void setItemIds(List<Long> itemIds) {
-        this.itemIds = itemIds;
+    public void setItems(List<Long> items) {
+        this.items = items;
     }
 }

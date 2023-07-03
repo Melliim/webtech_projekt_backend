@@ -14,6 +14,8 @@ public class ItemManipulationRequest {
         this.shelfId = shelfId;
     }
 
+    public ItemManipulationRequest() {}
+
     public String getName() {
         return name;
     }

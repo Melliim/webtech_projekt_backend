@@ -11,6 +11,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/")
 @RestController
 public class CategoryRestController {
 

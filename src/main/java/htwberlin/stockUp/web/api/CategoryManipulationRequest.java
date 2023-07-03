@@ -12,6 +12,8 @@ public class CategoryManipulationRequest {
         this.activeStatus = activeStatus;
     }
 
+    public CategoryManipulationRequest() {}
+
     public String getName() {
         return name;
     }
